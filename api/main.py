@@ -62,8 +62,14 @@ def translate_text(
             status_code=500, detail="Internal translation error.")
 
 
+def gradio_translate(text: str):
+    """Bridge function for the UI to access the model"""
+    if not translator_instance:
+        return "Error: Model not loaded yet. Please check /health."
+    return translator_instance.translate(text)
+
+
 description = """
-### 🌍 LinguistFlow NMT
 Translate English to French using a fine-tuned MarianMT transformer. 
 *API endpoints are available at `/docs`.*
 """
@@ -73,11 +79,11 @@ demo = gr.Interface(
     inputs=gr.Textbox(label="English Input", lines=3,
                       placeholder="Type something..."),
     outputs=gr.Textbox(label="French Translation"),
-    title="LinguistFlow",
+    title="LinguistFlow NMT",
     description=description,
     examples=[["Hello, how are you today?"], [
         "The model is running in the cloud."]],
-    allow_flagging="never"
+    flagging_mode="never"
 )
 
 # Mount Gradio to the FastAPI app at the root route
