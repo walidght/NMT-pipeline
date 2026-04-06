@@ -1,0 +1,14 @@
+evaluate
+datasets
+dotenv
+fastapi
+matplotlib 
+pydantic
+sacrebleu
+sacremoses
+seaborn
+sentencepiece
+torch
+transformers[torch]
+uvicorn
+wandb
