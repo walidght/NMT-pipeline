@@ -4,7 +4,7 @@ uvicorn
 pydantic
 pydantic-settings
 python-dotenv
-gradio
+gradio==6.11.0
 
 # --- ML & Inference ---
 torch
