@@ -1,3 +1,4 @@
+import argparse
 import re
 import os
 from datasets import load_dataset
@@ -30,9 +31,14 @@ def clean_text(text):
 
 
 def main():
-    print(f"1. Loading a subset of {DATASET_SIZE} rows...")
-    raw_dataset = load_dataset(
-        "opus100", "en-fr", split=f"train[:{DATASET_SIZE}]")
+
+    # Set up arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--subset", type=int, default=100, help="Number of rows to process")
+    args = parser.parse_args()
+
+    print(f"1. Loading a subset of {args.subset} rows...")
+    raw_dataset = load_dataset("opus100", "en-fr", split=f"train[:{args.subset}]")
 
     print("2. Loading AutoTokenizer...")
     tokenizer = AutoTokenizer.from_pretrained(MODEL_CHECKPOINT)
