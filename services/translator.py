@@ -7,9 +7,10 @@ class TranslatorService:
     def __init__(self, model_path: str = settings.local_model_path):
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            model_path, token=settings.hf_token)
         self.model = AutoModelForSeq2SeqLM.from_pretrained(
-            model_path).to(self.device)
+            model_path, token=settings.hf_token).to(self.device)
 
     def translate(self, text: str) -> str:
         inputs = self.tokenizer(text, return_tensors="pt").to(self.device)
