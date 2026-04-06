@@ -1,16 +1,25 @@
-evaluate
-datasets
-dotenv
+# --- Core API & Config ---
 fastapi
-matplotlib 
+uvicorn
 pydantic
-sacrebleu
-sacremoses
-seaborn
-sentencepiece
+pydantic-settings
+python-dotenv
+
+# --- ML & Inference ---
 torch
 transformers[torch]
-uvicorn
+sentencepiece
+sacremoses
+
+# --- Training & Metrics (Optional for API, but good for consistency) ---
+datasets
+evaluate
+sacrebleu
 wandb
-pytest 
+
+# --- Testing ---
+pytest
 httpx
+
+seaborn
+matplotlib 
