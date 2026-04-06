@@ -1,3 +1,4 @@
+import gradio as gr
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel, constr
@@ -59,3 +60,25 @@ def translate_text(
     except Exception as e:
         raise HTTPException(
             status_code=500, detail="Internal translation error.")
+
+
+description = """
+### 🌍 LinguistFlow NMT
+Translate English to French using a fine-tuned MarianMT transformer. 
+*API endpoints are available at `/docs`.*
+"""
+
+demo = gr.Interface(
+    fn=gradio_translate,
+    inputs=gr.Textbox(label="English Input", lines=3,
+                      placeholder="Type something..."),
+    outputs=gr.Textbox(label="French Translation"),
+    title="LinguistFlow",
+    description=description,
+    examples=[["Hello, how are you today?"], [
+        "The model is running in the cloud."]],
+    allow_flagging="never"
+)
+
+# Mount Gradio to the FastAPI app at the root route
+app = gr.mount_gradio_app(app, demo, path="/")
